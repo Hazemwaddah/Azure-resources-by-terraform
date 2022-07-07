@@ -1,4 +1,4 @@
-# Create an application gateway
+# Create a Web Application Firewall [WAF]
 
 There are a lot resources that can be secured using WAF [Web application Firewall]. The WAF acts as proxy that takes all the traffic redirected to a resource and then redirect that traffic or block it based on the WAF policy pre-configured. The resources which can be secured by a WAF can be anything, from a simple static website, dynamic website, virtual machine, VM scale sets, Azure Kubernetes cluster, ...etc. 
 
