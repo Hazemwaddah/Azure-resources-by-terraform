@@ -9,7 +9,9 @@ ii. Azure PowerShell
 iii. Azure CLI
 iv. Azure Resource Manager [ARM]
 
-This article describes the easiest way to deploy resources in Azure by using Azure CLI. 
+This article describes the easiest way to deploy resources in Azure by using Azure CLI. To insatll Azure CLI, you can refer to this [link] (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
+
+
 
 ### Create The Application Gateway
 
