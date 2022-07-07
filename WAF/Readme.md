@@ -11,9 +11,9 @@ iv. Azure Resource Manager [ARM]
 
 This article describes the easiest way to deploy resources in Azure by using Azure CLI. 
 
-To insatll Azure CLI, you can refer to this [link](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
+To install Azure CLI, you can refer to this [link](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli).
 
-
+To use the following command, you need to use a Bash terminal in your computer. In case you use Windows OS, you can install Git bash on your PC to use the command from this [link](https://git-scm.com/downloads). Otherwise, you can use the command in PowerShell terminal, but in this case, you need to delete the reverse slashes because PowerShell does not understand the slashes.
 
 ### Create The Application Gateway
 
