@@ -15,6 +15,29 @@ To install Azure CLI, you can refer to this [link](https://docs.microsoft.com/en
 
 To use the following command, you need to use a Bash terminal in your computer. In case you use Windows OS, you can install Git bash on your PC to use the command from this [link](https://git-scm.com/downloads). Otherwise, you can use the command in PowerShell terminal, but in this case, you need to delete the reverse slashes because PowerShell does not understand the slashes.
 
+
+
+### Create a virtual Network
+
+     az network vnet create \
+          --name WAF-VNET \
+          --resource-group rg-waf \
+          --location germanywestcentral \
+          --address-prefix 10.0.0.0/16 \
+          --subnet-name myAGSubnet \
+          --subnet-prefix 10.0.1.0/24
+          
+
+
+### Create a public IP address
+
+     az network public-ip create \
+          --resource-group rg-waf \
+          --name waf-pip \
+          --allocation-method Static \
+          --sku Standard
+
+
 ### Create The Application Gateway
 
      az network application-gateway create \
@@ -30,6 +53,9 @@ To use the following command, you need to use a Bash terminal in your computer. 
        --http-settings-port 80 \
        --http-settings-protocol Http \
        --public-ip-address waf-aks-pip
+
+
+
 
 
 
