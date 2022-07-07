@@ -69,7 +69,9 @@ We choose the "sku" to be WAF_V2 instead of Standard_V2 since we are creating a 
        --public-ip-address waf-pip
 
 
+### Finally
 
-
+After the WAF is created now we can add the backend servers in the backend pool and monitor their health from the WAF's backend health to make sure it's health.
+This process will vary from one another depending on the type of service that will be added in the backend pool. I've written an article about how to secure an example of one of Azure's services that requires a complex configuration and that's Azure Kubernetes cluster. You can find the article in the following [link](https://github.com/Hazemwaddah/Azure_Security/tree/main/AKS%20with%20WAF)
 
 
