@@ -11,7 +11,21 @@ iv. Azure Resource Manager [ARM]
 
 This article describes the easiest way to deploy resources in Azure by using Azure CLI. 
 
+### Create The Application Gateway
 
+     az network application-gateway create \
+       --name WAF-AKS \
+       --location uaenorth \
+       --resource-group rg-privateendpoint-uae \
+       --vnet-name rg-privateendpoint-uae-vnet \
+       --subnet myAGsubnet \
+       --capacity 2 \
+       --sku WAF_v2 \
+       --http-settings-cookie-based-affinity Disabled \
+       --frontend-port 80 \
+       --http-settings-port 80 \
+       --http-settings-protocol Http \
+       --public-ip-address waf-aks-pip
 
 
 
