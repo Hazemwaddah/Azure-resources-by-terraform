@@ -1,0 +1,31 @@
+---
+- name: Install IIS, Java and MySQL Server on Windows-server
+  hosts: windows-server
+  gather_facts: yes
+  vars:
+    ansible_user: "adminuser"
+    ansible_password: "P@ssw0rd123!"
+
+  tasks:
+      - name: Ensure Chocolatey is installed
+        win_chocolatey:
+          name: chocolatey
+          state: present
+
+      - name: Install IIS
+        win_feature:
+          name: Web-Server
+          state: present
+          include_sub_features: yes
+          include_management_tools: yes
+
+      - name: Install Java
+        win_chocolatey:
+          name: jdk8
+          state: present
+
+      - name: Install MySQL Server
+        win_chocolatey:
+          name: mysql
+          state: present
+...

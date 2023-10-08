@@ -1,0 +1,58 @@
+---
+- name: Install IIS, Java and MySQL Server on Windows-server
+  hosts: windows-server
+  gather_facts: yes
+  vars:
+    ansible_user: "adminuser"
+    ansible_password: "P@ssw0rd123!"
+
+  tasks:
+      - name: Ensure Chocolatey is installed
+        win_chocolatey:
+          name: chocolatey
+          state: present
+
+      - name: Install IIS
+        win_feature:
+          name: Web-Server
+          state: present
+          include_sub_features: yes
+          include_management_tools: yes
+
+      - name: Install Java
+        win_chocolatey:
+          name: jdk8
+          state: present
+
+      - name: Install MySQL Server
+        win_chocolatey:
+          name: mysql
+          state: present
+
+
+- name: Install Apache2, Java, MySQL, nginx, python3, docker and npm on linux-server
+  hosts: linux-server
+  vars:
+    ansible_user: "adminuser"
+    ansible_password: "P@ssw0rd123!"
+  tasks:
+    - name: Update APT package manager repositories cache
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install Java Apache2 nginx MySql Python3 Docker npm
+      become: yes
+      apt:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - default-jre
+          - apache2
+          - nginx
+          - mysql-server
+          - python3
+          - docker.io
+          - npm
+...
