@@ -5,10 +5,10 @@
     ansible_user: "adminuser"
     ansible_password: "P@ssw0rd123!"
   tasks:
-    - name: Update APT package manager repositories cache
-      become: true
-      apt:
-        update_cache: yes
+    #- name: Update APT package manager repositories cache
+    #  become: true
+    #  apt:
+    #    update_cache: yes
 
     - name: Install Java Apache2 nginx MySql Python3 Docker npm jenkins
       become: yes
@@ -17,7 +17,7 @@
         state: present
       vars:
         packages:
-          #- default-jre
+          - default-jre
           #- apache2
           #- nginx
           #- mysql-server
@@ -31,11 +31,18 @@
         repo: deb http://pkg.jenkins.io/debian-stable binary/
         state: present
 
+#    - name: Import Jenkins key
+#      become: yes    
+#      apt_key:
+#        key: https://pkg.jenkins.io/debian/jenkins.io.key
+#        state: present
+
     - name: Import Jenkins key
       become: yes    
-      apt_key:
+      get_url:
         url: https://pkg.jenkins.io/debian/jenkins.io.key
-        state: present
+        dest: /etc/apt/trusted.gpg.d/jenkins.asc
+        mode: '0644'
 
     - name: Install Jenkins
       become: yes    
