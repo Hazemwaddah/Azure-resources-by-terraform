@@ -2,6 +2,7 @@ terraform-provider-azurerm_v3.75.0_x5
 terraform.lock.hcl
 terraform.tfstate
 terraform.tfstate.Backup
+terraform.tfstate.lock.info
 
 # Ignore system-specific files
 #.DS_Store                # macOS system file
