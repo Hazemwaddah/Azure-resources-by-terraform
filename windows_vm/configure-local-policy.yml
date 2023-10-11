@@ -1,3 +1,4 @@
+---
 - name: Change the guest account name
   community.windows.win_security_policy:
     section: System Access
@@ -21,3 +22,4 @@
     section: Event Audit
     key: AuditSystemEvents
     value: 1
+...
