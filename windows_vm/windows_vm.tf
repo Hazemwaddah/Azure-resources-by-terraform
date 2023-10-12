@@ -37,7 +37,7 @@ resource "azurerm_public_ip" "example" {
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
   allocation_method   = "Static"
-  domain_name_label   = "${var.linux_vm_name}"
+  domain_name_label   = "${var.vm_name}"
 }
 ########################################################################################################################
 

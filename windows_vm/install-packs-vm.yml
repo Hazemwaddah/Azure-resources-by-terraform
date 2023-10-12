@@ -21,7 +21,7 @@
 
       - name: Install Java
         win_chocolatey:
-          name: jdk8
+          name: openjdk-17-jdk
           state: present
 
       - name: Install MySQL Server

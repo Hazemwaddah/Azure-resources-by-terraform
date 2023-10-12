@@ -1,0 +1,34 @@
+---
+- name: Export Group Policies and Security Policies
+  hosts: windows
+  gather_facts: yes
+
+  tasks:
+    - name: Export gpresult
+      win_shell: gpresult /Scope User /v > C:\temp\gpresult.txt
+      register: gpresult_output
+
+    - name: Export secedit configuration
+      win_shell: secedit /export /cfg C:\temp\secpol.cfg
+      register: secedit_output
+
+    - name: Display gpresult output
+      debug:
+        var: gpresult_output.stdout_lines
+
+    - name: Display secedit output
+      debug:
+        var: secedit_output.stdout_lines
+
+    - name: Fetch gpresult file
+      fetch:
+        src: C:\temp\gpresult.txt
+        dest: /home/hazem/Github/Azure_Resources/windows_vm
+        flat: yes
+
+    - name: Fetch secpol file
+      fetch:
+        src: C:\temp\secpol.cfg
+        dest: /home/hazem/Github/Azure_Resources/windows_vm
+        flat: yes
+...

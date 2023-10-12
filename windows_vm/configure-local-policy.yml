@@ -1,4 +1,15 @@
 ---
+---
+- name: Configure local policies in Windows Server
+  hosts: windows
+  gather_facts: no
+
+  tasks:
+    - name: Set local policy
+      win_security_policy:
+        name: 'policy_name'
+        value: 'policy_value'
+
 - name: Change the guest account name
   community.windows.win_security_policy:
     section: System Access
