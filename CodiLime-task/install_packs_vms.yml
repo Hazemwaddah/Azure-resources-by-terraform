@@ -1,5 +1,5 @@
 ---
-- name: linux Install Apache2, Java, MySQL, nginx, python3, docker and npm on linux-server
+- name: linux Install Java, nginx, python3, docker on linux-server
   hosts: linux-server
   vars:
     ansible_user: "adminuser"
@@ -18,24 +18,13 @@
       vars:
         packages:
           - openjdk-17-jdk
+          - nginx
+          - python3
+          - docker.io
 
-    - name: Add Jenkins repo key
-      become: yes
-      shell: |
-        wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
-        echo deb [trusted=yes] http://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
-        sudo apt-get update
-
-    - name: Install Jenkins
-      become: yes    
-      package:
-        name: jenkins
-        state: present
-
-    - name: Start Jenkins service
-      become: yes    
+    - name: Start NGINX
       service:
-        name: jenkins
+        name: nginx
         state: started
-        enabled: yes
+        enabled: yes          
 ...

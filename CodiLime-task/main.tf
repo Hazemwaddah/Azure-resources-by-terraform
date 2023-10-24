@@ -1,10 +1,10 @@
 
 provider "azurerm" {
   features {}
-  subscription_id = var.subscription_id
+ # subscription_id = var.subscription_id
  # client_id       = var.client_id
  # client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
+ # tenant_id       = var.tenant_id
 }
 ########################################################################################################################
 
@@ -78,5 +78,15 @@ resource "azurerm_linux_virtual_machine" "linux" {
   computer_name   = var.linux_vm_name
   admin_username   = var.linux_admin_username
   admin_password   = var.linux_admin_password
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get update",
+      "sudo apt-get install -y docker.io",
+      "sudo systemctl start docker",
+      "sudo systemctl enable docker",
+      "sudo docker run -d -p 80:80 nginxdemos/hello"
+    ]
+  }  
 }
 
