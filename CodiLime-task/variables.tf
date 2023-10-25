@@ -4,11 +4,7 @@ variable "location" {}
 variable "resource_group_name" {}
 variable "virtual_network_name" {}
 variable "subnet_name" {}
-#variable "admin_username" {}
-#variable "admin_password" {}
-#variable "network_interface_name" {}
-#variable "ip_configuration_name" {}
-
+variable "load_balancer" {}
 ########################################################################################################################
 
 # linux-server 

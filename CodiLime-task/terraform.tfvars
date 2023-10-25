@@ -1,9 +1,8 @@
-location = "West Europe"
+location = "Qatar Central"
 resource_group_name = "azure_testing_environment"
 virtual_network_name = "my_virtual_network"
 subnet_name = "my_subnet"
-#admin_username = "adminuser"
-#admin_password = "P@ssw0rd123!"
+load_balancer = "lb"
 
 ##################################################################################################
 
