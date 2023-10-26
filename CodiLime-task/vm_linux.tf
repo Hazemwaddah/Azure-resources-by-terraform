@@ -67,12 +67,12 @@ resource "azurerm_linux_virtual_machine" "linux" {
 
   admin_ssh_key {
     username   = "adminuser"
-    public_key = tls_private_key.tls.public_key_openssh
+    public_key = file(var.public_key_file)
   }  
-  disable_password_authentication = false
+  disable_password_authentication = true
   computer_name   = var.linux_vm_name
   admin_username   = var.linux_admin_username
-  admin_password   = var.linux_admin_password
+  #admin_password   = var.linux_admin_password
 
   provisioner "remote-exec" {
     inline = [
@@ -86,9 +86,8 @@ resource "azurerm_linux_virtual_machine" "linux" {
     connection {
       type        = "ssh"
       user        = "adminuser"
-      password    = "P@ssw0rd123!"
-      #private_key = file("~/.ssh/id_rsa.pem")
-      #host        = self.public_ip_address
+      #password    = "P@ssw0rd123!"
+      private_key = file(var.private_key_file)
       host         = azurerm_public_ip.linux.ip_address
     }
   }  

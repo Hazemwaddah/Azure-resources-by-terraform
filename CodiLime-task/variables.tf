@@ -6,6 +6,8 @@ variable "virtual_network_name" {}
 variable "subnet_name" {}
 variable "load_balancer" {}
 variable "control_vm_ip" {}
+variable "private_key_file" {}
+variable "public_key_file" {}
 
 ########################################################################################################################
 
@@ -20,4 +22,4 @@ variable "linux_image_sku" {}
 variable "linux_image_version" {}
 variable "linux_image_offer" {}
 variable "linux_admin_username" {}
-variable "linux_admin_password" {}
+#variable "linux_admin_password" {}
