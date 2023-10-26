@@ -3,6 +3,7 @@ resource_group_name = "azure_testing_environment"
 virtual_network_name = "my_virtual_network"
 subnet_name = "my_subnet"
 load_balancer = "lb"
+control_vm_ip = "197.60.225.80"
 
 ##################################################################################################
 

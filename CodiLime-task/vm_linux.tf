@@ -33,6 +33,8 @@ resource "azurerm_network_interface" "linux" {
     name                          = var.linux_ip_configuration_name
     subnet_id                     = azurerm_subnet.infra.id
     private_ip_address_allocation = "Dynamic"
+    #sku                 = "Standard"
+    #zones               = ["1", "2", "3"]
     # public_ip_address_id          = azurerm_public_ip.linux.id
     #load_balancer_backend_address_pools_ids = [azurerm_lb_backend_address_pool.pool.id]
   }
@@ -62,6 +64,11 @@ resource "azurerm_linux_virtual_machine" "linux" {
     sku       = var.linux_image_sku
     version   = var.linux_image_version
   }
+
+  admin_ssh_key {
+    username   = "adminuser"
+    public_key = tls_private_key.tls.public_key_openssh
+  }  
   disable_password_authentication = false
   computer_name   = var.linux_vm_name
   admin_username   = var.linux_admin_username
@@ -75,13 +82,14 @@ resource "azurerm_linux_virtual_machine" "linux" {
       "sudo systemctl enable docker",
       "sudo docker run -d -p 80:80 nginxdemos/hello"
     ]
-    
-#    connection {
-#      type        = "ssh"
-#      user        = "adminuser"
-#      private_key = file("<path-to-private-key>")
-#      host        = self.public_ip_address
-#    }
 
+    connection {
+      type        = "ssh"
+      user        = "adminuser"
+      password    = "P@ssw0rd123!"
+      #private_key = file("~/.ssh/id_rsa.pem")
+      #host        = self.public_ip_address
+      host         = azurerm_public_ip.linux.ip_address
+    }
   }  
 }
