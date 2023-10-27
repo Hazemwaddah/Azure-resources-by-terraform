@@ -29,6 +29,7 @@ resource "azurerm_network_security_group" "nsg" {
 }
 
 resource "azurerm_network_interface_security_group_association" "nsg" {
-  network_interface_id      = azurerm_network_interface.linux.id
+  for_each = var.instances
+  network_interface_id      = azurerm_network_interface.linux[each.key].id
   network_security_group_id = azurerm_network_security_group.nsg.id
 }

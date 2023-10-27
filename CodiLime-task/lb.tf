@@ -8,6 +8,8 @@ resource "azurerm_lb" "lb" {
   frontend_ip_configuration {
     name                 = "lb-frontend"
     public_ip_address_id = azurerm_public_ip.linux.id
+    #sku                  = "Standard"
+    #zones                = ["1", "2", "3"]
   }
 }
 
@@ -18,7 +20,8 @@ resource "azurerm_lb_backend_address_pool" "pool" {
 
 # Associate the NIC with the Backend Address Pool
 resource "azurerm_network_interface_backend_address_pool_association" "pool" {
-  network_interface_id    = azurerm_network_interface.linux.id
+  for_each = var.instances
+  network_interface_id    = azurerm_network_interface.linux[each.key].id
   ip_configuration_name   = var.linux_ip_configuration_name
   backend_address_pool_id = azurerm_lb_backend_address_pool.pool.id
 }

@@ -8,6 +8,18 @@ variable "load_balancer" {}
 variable "control_vm_ip" {}
 variable "private_key_file" {}
 variable "public_key_file" {}
+variable "instances" {
+  description = "The map of instances to create"
+  default = {
+    instance1 = "adminuser1"
+    instance2 = "adminuser2"
+  }
+}
+
+#variable "admin_password" {
+#  description = "The password of the admin account"
+#  default     = "P@ssw0rd123!"
+#}
 
 ########################################################################################################################
 
