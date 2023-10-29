@@ -68,7 +68,7 @@ One of the most significant security counter measures to consider when deploying
 
 The second goal of deploying a load balancer is to/the traffic between multiple virtual machine instead of using only. Also, in case one of the virtual machines crashes the load balancer will route the traffic to the other virtual machine automatically, meaning no manual actions needed from DevOps engineer.
 
-###  NAT rules
+####  NAT rules
 
 Those rules are very different from the load balancing rules.  The main difference between them is that load balancing rules do not differentiate between the virtual machines before routing the traffic to them, whereas the NAT rules gives us the ability to connect to a specific virtual machine behind the load balancer. Hence, these rule are created to be able to connect through ssh to each virtual machine on different ports.
 
@@ -77,7 +77,7 @@ As you can see from the figure below each virtual machine uses a different port.
 ![Alt text](image-3.png)
 
 
-### Instructions
+## Instructions
 
 
 Now after going through the Terraform files, understanding the code now is the time to modify those files to give get the values that we want to have in our environment.
@@ -87,3 +87,30 @@ The developer will start by opening the variables.tfvar file to edit the values 
 In addition, as mentioned above the best practice is to create the SSH key outside Terraform and then put the the path that contains those files [the key] as a variable as you can see in the below image:
 
 ![Alt text](image.png)
+
+
+Note: -
+1. When creating the NAT rules from the beginning the "remote-exec" module will not work due to limitations of NAT rules.
+NAT rules differ from load balancing rules. They are designed to give access to a specific machine behind the load balancer to be done manually, Hence, they reject/block the "remote-exec" module from installing docker service and running the docker container image automatically.
+
+Creating a load balancing rule at the beginning using the Terraform code will utilize port 22. Therefore, when we try to create the NAT rules we will be faced with an issue because port 22 is already occupied with the load balancing so there is a conflict between load balancing rules and NAT rules. Hence, we will have to delete the load balancing group by removing them from the Terraform code and applying these changes again so the NAT rules will utilize port 22 at the back end.
+
+While the back-end port is still the default one for SSH which is port 22, the front-end that will utilize are different as you can see from the image one machine is using port 3000 and another is using port 3001This is an important security counter measure when malicious attack or tries to ports can IP address they cannot find port 22 open so they don't know if the machine are Linux or not.
+
+
+By hashing the load balancer from the Terraform file as we can see in the image below, and applying the changes using the command:
+
+ ''terraform apply''
+
+
+This will lead to deleting load balancer rules, and after that we can run the same command again to create the NAT
+
+
+![Alt text](image-1.png)
+
+
+2. Load balancers in Azure cannot have virtual machines in the backend pool unless they belong to the same availability zone. So I create availability zone to make sure all the virtual machines that have to be created through Terraform or in the same availability zone. This is extremely important.
+
+
+
+
