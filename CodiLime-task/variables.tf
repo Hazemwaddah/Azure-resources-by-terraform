@@ -43,11 +43,11 @@ variable "linux_admin_username" {}
 variable "rules" {
   description = "Map of rules to create"
   default = {
-    ssh = {
-      protocol = "Tcp"
-      frontend_port = 22
-      backend_port = 22
-    }
+    #ssh = {
+     # protocol = "Tcp"
+     # frontend_port = 22
+     # backend_port = 22
+    #}
     http = {
       protocol = "Tcp"
       frontend_port = 80
