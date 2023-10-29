@@ -54,7 +54,7 @@ resource "azurerm_linux_virtual_machine" "linux" {
   #delete_data_disks_on_termination = true
 
   network_interface_ids = [azurerm_network_interface.linux[each.key].id]
-
+  #load_balancer_inbound_nat_rules_ids     = [azurerm_lb_nat_rule.natrule.id]
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
@@ -70,7 +70,9 @@ resource "azurerm_linux_virtual_machine" "linux" {
   admin_ssh_key {
     username   = var.linux_admin_username
     public_key = file(var.public_key_file)
-  }  
+  }
+  
+  availability_set_id = azurerm_availability_set.avset.id  
   disable_password_authentication = true
   computer_name   = var.linux_vm_name
   admin_username   = var.linux_admin_username
