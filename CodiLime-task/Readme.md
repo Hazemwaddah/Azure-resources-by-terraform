@@ -92,7 +92,9 @@ In addition, as mentioned above the best practice is to create the SSH key outsi
 ![Alt text](image.png)
 
 
-Note: -
+## Note
+
+
 1. When creating the NAT rules from the beginning the "remote-exec" module will not work due to limitations of NAT rules.
 NAT rules differ from load balancing rules. They are designed to give access to a specific machine behind the load balancer to be done manually, Hence, they reject/block the "remote-exec" module from installing docker service and running the docker container image automatically.
 
@@ -120,4 +122,46 @@ This will lead to deleting load balancer rules, and after that we can run the sa
 4. Another solution can be added to this infrastructure to provide more efficient high availability and that would be the deployment of "bastion". Bastion is a native-cloud service provided by Microsoft Cloud Azure. It is based on another cloud-native service that is called virtual machine-scale sets. VMSS service deploys multiple virtual machines in the back-end, but they are administered as a single virtual machine. Again, it comes with more cost.
 
 
-5. If I am using another scenario to deploy the virtual machines using username and password, in that case and if I want to remains secure, I can create the key vault in Azure and that vault will contain the password. In that scenario, I will need to give the virtual machines access to this vault to retrieve the password so I will use managed identity/service principal in Azure. 
+5. If I am using another scenario to deploy the virtual machines using username and password, in that case and if I want to remains secure, I can create the key vault in Azure and that vault will contain the password. In this scenario, I will have to give the virtual machines access to this vault to retrieve the password so I will use managed identity/service principal in Azure. In one scenario, I will create a user-assigned managed identity and give access of "key-vault-secrets-user" role. This roles enables the virtual machines to read secrets from the key vault. After that, I will assign this user - assigned managed identity all virtual machine that is going to be created through Terraform code.
+
+
+6. Securing web application can be implemented through the utilization of a web application firewall [WAF]. WAFs or specialized firewalls to prevent common web applications attacks such as cross-site scripting XSS, SQL injection, cross-site request forgery XSRF, ... etc. In Azure, we can deploy an application gateway and attach it to a WAF policy do the job of a WAF. Moreover, we can deploy a [frontdoor] which is another cloud-native service that deploys a WAF plus content-delivery networkCDN profile to improve the performance as well as security. Both aforementioned services are layer 7 services so they understand HTTP/HTTPS amongst other protocols, unlike layer for load balancer which doesn't. Again, this increases the cost of the network.
+
+
+All of the above different services can be deployed depending on the exact need of each client. There is no one solution that fits all demands. 
+
+
+
+## How to consume this repo
+
+1. Clone the Repository: Clone the repository to your local machine using the command 
+
+`git clone https://github.com/Hazemwaddah/azure-resources-by-terraform.git.`
+
+2. Navigate to the Specific Folder: Use the command 
+
+`cd azure-resources-by-terraform/CodiLime-task`
+
+to navigate to the specific folder.
+
+3. Pull the Latest Changes: Before starting your work, pull the latest changes from the repository using 
+
+`git pull origin f1a6ca664d2a801d0fcebd9882699033451efdef.`
+
+4. Create a New Branch: Create a new branch for your assignment using 
+
+`git checkout -b <your_branch_name>`
+
+5. Make Changes and Commit: After making changes to your code, add them to staging using 
+
+`git add .`
+
+then commit those changes using 
+
+`git commit -m "<your_commit_message>"`
+
+6. Push Your Changes: Push your changes to GitHub using 
+
+`git push origin <your_branch_name>`
+
+
