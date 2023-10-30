@@ -77,6 +77,9 @@ As you can see from the figure below each virtual machine uses a different port.
 ![Alt text](image-3.png)
 
 
+Unfortunately, there is a limitation to the usage of NAT rules. As there is no way to automatically assign the target virtual machine to the NAT rule through Terraform; this has to be done manually each time after the creation of the NAT rule. There is no parameter or attribute in the Terraform code to insert the target system beforehand.
+
+
 ## Instructions
 
 
@@ -100,7 +103,7 @@ While the back-end port is still the default one for SSH which is port 22, the f
 
 By hashing the load balancer from the Terraform file as we can see in the image below, and applying the changes using the command:
 
- ''terraform apply''
+`terraform apply`
 
 
 This will lead to deleting load balancer rules, and after that we can run the same command again to create the NAT
@@ -112,5 +115,9 @@ This will lead to deleting load balancer rules, and after that we can run the sa
 2. Load balancers in Azure cannot have virtual machines in the backend pool unless they belong to the same availability zone. So I create availability zone to make sure all the virtual machines that have to be created through Terraform or in the same availability zone. This is extremely important.
 
 
+3. There are more options that can be implemented to add mail or security the way administer our virtual machine. VPN is that choice. VPN provide security by encrypting all the traffic between the two parties. This prevents the interception of the traffic prom of third party, however that comes at a price which requires cost. For example, a VPM gateway needs to be add to Terraform infrastructure which is going to increase the cost. In addition to this, a certificate to be purchased a certificate authority CA. 
+
+4. Another solution can be added to this infrastructure to provide more efficient high availability and that would be the deployment of "bastion". Bastion is a native-cloud service provided by Microsoft Cloud Azure. It is based on another cloud-native service that is called virtual machine-scale sets. VMSS service deploys multiple virtual machines in the back-end, but they are administered as a single virtual machine. Again, it comes with more cost.
 
 
+5. If I am using another scenario to deploy the virtual machines using username and password, in that case and if I want to remains secure, I can create the key vault in Azure and that vault will contain the password. In that scenario, I will need to give the virtual machines access to this vault to retrieve the password so I will use managed identity/service principal in Azure. 
