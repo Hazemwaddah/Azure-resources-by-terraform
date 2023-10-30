@@ -1,3 +1,65 @@
+## How to consume this repo
+
+1. Clone the Repository: Clone the repository to your local machine using the command 
+
+`git clone https://github.com/Hazemwaddah/azure-resources-by-terraform.git.`
+
+2. Navigate to the Specific Folder: Use the command 
+
+`cd azure-resources-by-terraform/CodiLime-task`
+
+to navigate to the specific folder.
+
+3. Pull the Latest Changes: Before starting your work, pull the latest changes from the repository using 
+
+`git pull origin f1a6ca664d2a801d0fcebd9882699033451efdef.`
+
+4. Now you will be able to see all the files in the directory:
+
+```rg.tf vm.tf lb.tf nsg.tf variables.tf variables.tfvar```
+
+7. Open file "variables.tfvar" which contains two values of the variables declared
+
+![Alt text](image.png)
+
+
+8. Now change the following to your values:
+
+- control_vm_ip:                        Your public IP address.             
+
+It is important to change this, otherwise you will not able to next the Linux VM after the creation the nsg limits administrative access to only one IP address.
+
+- You can other options[variables] as you desire.
+
+9. After changing all the configuration as wanted, now start with the initialization of the Terraform code: 
+
+`terraform init`
+
+![Alt text](image-4.png)
+
+
+10. It is important to use an updated version of Terraform provider, sometimes when you're faced with issues just use:
+
+`terraform init -upgrade`
+
+
+11. Now you can start by creating the environment using the following command:
+
+`terraform apply`
+
+12. After accepting the creation of the environment, Terraform will take the time and then until will be created. Notice that we need to create load balancing rules at the beginning, but after the environment is set up we two delete those are rules and create NAT rules nes in stead. The reason we do that is to be able to access the virtual machines remotely through SSH through the load balancer. More explanation is provided throughout this article add the NAT rule section.
+
+This will be done by commenting/hashing that below part and we are running Terraform apply again:
+
+![Alt text](image-5.png)
+
+Doing the process in that order is imperative.
+
+##################################################################################################
+
+##################################################################################################
+
+
 ## Create a vm Linux machine to deploy a stateless containerized application
 
 This repo contains Terraform file deploy a Linux virtual machine that can host a stateless containerized application using Docker. Through out this article, you will find explanation of the security measures taken through the creation of the whole environment through Terraform code. 
@@ -89,7 +151,7 @@ The developer will start by opening the variables.tfvar file to edit the values 
 
 In addition, as mentioned above the best practice is to create the SSH key outside Terraform and then put the the path that contains those files [the key] as a variable as you can see in the below image:
 
-![Alt text](image.png)
+
 
 
 ## Note
@@ -131,37 +193,5 @@ This will lead to deleting load balancer rules, and after that we can run the sa
 All of the above different services can be deployed depending on the exact need of each client. There is no one solution that fits all demands. 
 
 
-
-## How to consume this repo
-
-1. Clone the Repository: Clone the repository to your local machine using the command 
-
-`git clone https://github.com/Hazemwaddah/azure-resources-by-terraform.git.`
-
-2. Navigate to the Specific Folder: Use the command 
-
-`cd azure-resources-by-terraform/CodiLime-task`
-
-to navigate to the specific folder.
-
-3. Pull the Latest Changes: Before starting your work, pull the latest changes from the repository using 
-
-`git pull origin f1a6ca664d2a801d0fcebd9882699033451efdef.`
-
-4. Create a New Branch: Create a new branch for your assignment using 
-
-`git checkout -b <your_branch_name>`
-
-5. Make Changes and Commit: After making changes to your code, add them to staging using 
-
-`git add .`
-
-then commit those changes using 
-
-`git commit -m "<your_commit_message>"`
-
-6. Push Your Changes: Push your changes to GitHub using 
-
-`git push origin <your_branch_name>`
 
 
