@@ -29,6 +29,13 @@ to navigate to the specific folder.
 
 It is important to change this, otherwise you will not able to next the Linux VM after the creation the nsg limits administrative access to only one IP address.
 
+
+- You should download the SSH keys used to connect remotely to the Linux machines. You shall find them in the repo, and you should put them the directory to find the variable value below:
+
+`private_key_file = "~/Github/Azure_Resources/CodiLime-task/Codi_key"`
+
+`public_key_file  = "~/Github/Azure_Resources/CodiLime-task/Codi_key.pub"`
+
 - You can other options[variables] as you desire.
 
 9. After changing all the configuration as wanted, now start with the initialization of the Terraform code: 
