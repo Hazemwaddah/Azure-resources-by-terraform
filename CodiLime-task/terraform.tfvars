@@ -3,7 +3,7 @@ resource_group_name = "azure_testing_environment"
 virtual_network_name = "my_virtual_network"
 subnet_name = "my_subnet"
 load_balancer = "lb"
-control_vm_ip = "41.43.167.16"
+control_vm_ip = "41.47.208.68"
 private_key_file = "~/Github/Azure_Resources/CodiLime-task/Codi_key"
 public_key_file  = "~/Github/Azure_Resources/CodiLime-task/Codi_key.pub"
 
