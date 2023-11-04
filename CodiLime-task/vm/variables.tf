@@ -10,7 +10,7 @@ variable "resource_group_name" {
 
 variable "availability_set_id" {
   type = string
-  default = "/subscriptions/2082bb2a-22e8-46c6-a2c7-63d706da03a0/resourceGroups/azure_testing_environment/providers/Microsoft.Compute/availabilitySets/avset"
+  default = "my_availability_set"
 }
 
 variable "instances" {
@@ -34,6 +34,9 @@ variable "linux_image_sku" {}
 variable "linux_image_version" {}
 variable "linux_image_offer" {}
 variable "linux_admin_username" {}
+#variable "linux_admin_password" {}
+
+########################################################################################################################
 
 variable "virtual_network_name" {}
 variable "subnet_name" {}
@@ -41,6 +44,3 @@ variable "load_balancer" {}
 variable "control_vm_ip" {}
 variable "private_key_file" {}
 variable "public_key_file" {}
-
-#variable "public_ip" {}
-#variable "availability_set_id" {}

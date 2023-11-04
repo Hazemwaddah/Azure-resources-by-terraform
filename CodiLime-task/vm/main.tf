@@ -64,7 +64,7 @@ resource "azurerm_linux_virtual_machine" "linux" {
     public_key = file(var.public_key_file)
   }
   
-  availability_set_id = var.availability_set_id    #azurerm_availability_set.avset.id  # 
+  availability_set_id = var.availability_set_id
   disable_password_authentication = true
   computer_name   = var.linux_vm_name
   admin_username   = var.linux_admin_username
