@@ -9,8 +9,7 @@ variable "location" {
   description = "The Azure Region in which all resources in this example should be provisioned"
 }
 
-variable "resource_group_name" {
-  description = "The name of the resources"
-  type        = string
+locals {
+  resource_group_name     = "${var.prefix}-aks-resources"
 }
 

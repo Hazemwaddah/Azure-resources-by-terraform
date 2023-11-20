@@ -6,7 +6,8 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "example" {
-  name     = "${var.prefix}-aks-resources"
+  #name     = "${var.prefix}-aks-resources"
+  name     = local.resource_group_name
   location = var.location
 }
 
@@ -53,6 +54,8 @@ data "azurerm_public_ip" "example" {
   resource_group_name = azurerm_kubernetes_cluster.example.node_resource_group
 }
 
+
+
 provider "kubernetes" {
   host                   = azurerm_kubernetes_cluster.example.kube_config.0.host
   username               = azurerm_kubernetes_cluster.example.kube_config.0.username
@@ -68,7 +71,7 @@ resource "kubernetes_deployment" "example" {
   }
 
   spec {
-    replicas = 3
+    replicas = 2
 
     selector {
       match_labels = {
@@ -86,7 +89,7 @@ resource "kubernetes_deployment" "example" {
       spec {
         container {
           name  = "nginx"
-          image = "nginx:1.7.8"
+          image = "nginxdemos/hello:latest"
 
           port {
             container_port = 80
@@ -114,4 +117,26 @@ resource "kubernetes_service" "example" {
 
     type = "LoadBalancer"
   }
+}
+
+
+module "fd" {
+  source = "./fd"
+  resource_group_name = local.resource_group_name
+  location = var.location
+  frontdoor_name = "hmw-FrontDoor"
+  routing_rule_name = "RoutingRule1"
+  accepted_protocols = ["Http", "Https"]
+  patterns_to_match = ["/*"]
+  frontend_endpoints = ["FrontendEndpoint1"]
+  #forwarding_protocol
+  backend_pool_name = "exampleBackendBing"
+  backend_pool_load_balancing_name = "LoadBalancingSettings1"
+  backend_pool_health_probe_name = "HealthProbeSetting1"
+  backend_host_header = "www.bing.com"
+  backend_address = "linux-vm.qatarcentral.cloudapp.azure.com"
+  backend_http_port  = 80
+  backend_https_port  = 443
+  frontend_endpoint_name = "FrontendEndpoint1"
+  frontend_endpoint_host_name = "example-FrontDoor.azurefd.net"
 }
