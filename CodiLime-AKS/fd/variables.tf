@@ -23,15 +23,4 @@ variable "backend_https_port" { type = number }
 variable "frontend_endpoint_name" {}
 variable "frontend_endpoint_host_name" {}
 
-########################################################################################################################
-
-provider "azurerm" {
-  features {}
- # subscription_id  = var.subscription_id
- # client_id       = var.client_id
- # client_secret   = var.client_secret
- # tenant_id        = var.tenant_id
-}
-########################################################################################################################
-
 

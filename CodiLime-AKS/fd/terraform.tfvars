@@ -1,9 +1,3 @@
-
-virtual_network_name = "my_virtual_network"
-subnet_name = "my_subnet"
-
-##################################################################################################
-
 ####                  front door
 
 frontdoor_name = "hmw-FrontDoor"
