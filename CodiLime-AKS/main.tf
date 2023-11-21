@@ -47,14 +47,20 @@ resource "azurerm_kubernetes_cluster" "example" {
     network_plugin    = "kubenet"
     load_balancer_sku = "standard"
   }
+
+  linux_profile {
+    admin_username = "adminuser"
+
+    ssh_key {
+      key_data = file("/home/hazem/Github/Azure_Resources/CodiLime-AKS/Codi_key.pub")
+    }
+  }  
 }
 
 data "azurerm_public_ip" "example" {
   name                = reverse(split("/", tolist(azurerm_kubernetes_cluster.example.network_profile.0.load_balancer_profile.0.effective_outbound_ips)[0]))[0]
   resource_group_name = azurerm_kubernetes_cluster.example.node_resource_group
 }
-
-
 
 provider "kubernetes" {
   host                   = azurerm_kubernetes_cluster.example.kube_config.0.host
@@ -139,4 +145,20 @@ module "fd" {
   backend_https_port  = 443
   frontend_endpoint_name = "FrontendEndpoint1"
   frontend_endpoint_host_name = "example-FrontDoor.azurefd.net"
+}
+
+
+module "bastion" {
+  source = "./bastion"
+  resource_group_name = local.resource_group_name
+  location = var.location
+  azurerm_virtual_network = azurerm_virtual_network.example
+  azurerm_subnet = azurerm_subnet.example
+  azurerm_public_ip = data.azurerm_public_ip.example 
+}
+
+module "kv" {
+  source = "./kv"
+  resource_group_name = local.resource_group_name
+  location = var.location
 }
