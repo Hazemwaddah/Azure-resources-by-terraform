@@ -1,5 +1,5 @@
 resource "azurerm_key_vault" "example" {
-  name                        = "hazem-keyvault${random_integer.ri.result}"
+  name                        = "keyvault${random_integer.ri.result}"
   location                    = var.location
   resource_group_name         = var.resource_group_name
   enabled_for_disk_encryption = true
@@ -23,4 +23,15 @@ resource "azurerm_key_vault" "example" {
       "Get",
     ]
   }
+}
+
+resource "azurerm_key_vault_secret" "example" {
+  name         = "ssh-key"
+  value        = file("/home/hazem/Github/Azure_Resources/CodiLime-AKS/Codi_key")
+  key_vault_id = azurerm_key_vault.example.id
+}
+
+resource "random_integer" "ri" {
+  min = 1
+  max = 9999
 }
