@@ -2,6 +2,14 @@
 
 variable "resource_group_name" {}
 variable "location" {}
+#variable "azurerm_subnet" {}
+variable "waf_subnet" {}
+
+
+variable "wafip_id" {
+  description = "The ID of the Public IP address resource"
+  type        = string
+}
 
 ########################################################################################################################
 

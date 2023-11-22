@@ -16,11 +16,13 @@ resource "azurerm_key_vault" "example" {
     key_permissions = [
       "Create",
       "Get",
+      "List",
     ]
 
     secret_permissions = [
       "Set",
       "Get",
+      "List",
     ]
   }
 }
