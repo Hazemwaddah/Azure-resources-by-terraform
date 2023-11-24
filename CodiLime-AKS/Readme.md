@@ -20,7 +20,7 @@ This Terraform configuration deploys Kubernetes cluster on Azure to host the app
 
 3. Replace the variable definitions that you see under each module as you see in the figure below.
 
-![Alt text](image.png)
+![Alt text](image-2.png)
 
 
 4. It is that simple. Now what you need to do is just simply one this command:
