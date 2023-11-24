@@ -1,5 +1,4 @@
-# Copyright (c) HashiCorp, Inc.
-# SPDX-License-Identifier: MPL-2.0
+##      Global variables
 
 provider "azurerm" {
   features {}
@@ -53,7 +52,6 @@ module "aks" {
   azurerm_virtual_network = azurerm_virtual_network.example
   subnet_id  = azurerm_subnet.example.id
 }
-
 
 
 module "appgw" {
