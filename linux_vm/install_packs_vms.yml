@@ -1,0 +1,41 @@
+---
+- name: linux Install Apache2, Java, MySQL, nginx, python3, docker and npm on linux-server
+  hosts: linux-server
+  vars:
+    ansible_user: "adminuser"
+    ansible_password: "P@ssw0rd123!"
+  tasks:
+    - name: Update APT package manager repositories cache
+      become: true
+      apt:
+        update_cache: yes
+
+    - name: Install Java
+      become: yes
+      apt:
+        name: "{{ packages }}"
+        state: present
+      vars:
+        packages:
+          - openjdk-17-jdk
+
+    - name: Add Jenkins repo key
+      become: yes
+      shell: |
+        wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+        echo deb [trusted=yes] http://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list
+        sudo apt-get update
+
+    - name: Install Jenkins
+      become: yes    
+      package:
+        name: jenkins
+        state: present
+
+    - name: Start Jenkins service
+      become: yes    
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+...
