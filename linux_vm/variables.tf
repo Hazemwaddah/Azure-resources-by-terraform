@@ -23,13 +23,13 @@ variable "image_offer" {}
 
 ########################################################################################################################
 
-provider "azurerm" {
-  features {}
-  subscription_id = var.subscription_id
- # client_id       = var.client_id
- # client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
-}
+#provider "azurerm" {
+#  features {}
+#  subscription_id = var.subscription_id
+# client_id       = var.client_id
+# client_secret   = var.client_secret
+#  tenant_id       = var.tenant_id
+#}
 
 resource "azurerm_resource_group" "example" {
   name     = var.resource_group_name

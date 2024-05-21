@@ -1,5 +1,5 @@
 ---
-- name: linux Install Apache2, Java, MySQL, nginx, python3, docker and npm on linux-server
+- name: linux Install Apache2, Java on linux-server
   hosts: linux-server
   vars:
     ansible_user: "adminuser"
@@ -18,6 +18,61 @@
       vars:
         packages:
           - openjdk-17-jdk
+
+- name: Install and Set Up Apache
+  hosts: your_target_hosts
+  become: yes
+  tasks:
+    - name: Install aptitude (preferred by Ansible)
+      apt:
+        name: aptitude
+        state: present
+
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Create custom document root folder
+      file:
+        path: /var/www/mywebsite
+        state: directory
+        owner: www-data
+        group: www-data
+
+    - name: Set up a test page
+      copy:
+        content: "<html><body><h1>My Apache Web Server</h1></body></html>"
+        dest: /var/www/mywebsite/index.html
+        owner: www-data
+        group: www-data
+
+    - name: Enable the new Apache VirtualHost
+      apache2_module:
+        name: vhost_alias
+        state: present
+
+    - name: Create a new Apache VirtualHost
+      apache2_vhost:
+        servername: mywebsite.com
+        documentroot: /var/www/mywebsite
+        state: present
+
+    - name: Disable the default Apache website
+      apache2_vhost:
+        servername: 000-default
+        state: absent
+
+    - name: Set up UFW to allow HTTP traffic
+      ufw:
+        rule: allow
+        port: 80
+        proto: tcp
+
+    - name: Restart Apache
+      service:
+        name: apache2
+        state: restarted
 
     - name: Add Jenkins repo key
       become: yes

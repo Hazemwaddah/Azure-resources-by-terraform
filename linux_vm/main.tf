@@ -31,7 +31,7 @@ resource "azurerm_subnet" "infra" {
 ########################################################################################################################
 
 resource "azurerm_public_ip" "linux" {
-  name                = "linux-publicip"
+  name                = "publicip"
   location            = azurerm_resource_group.infra.location
   resource_group_name = azurerm_resource_group.infra.name
   allocation_method   = "Static"
@@ -39,12 +39,12 @@ resource "azurerm_public_ip" "linux" {
 ########################################################################################################################
 
 resource "azurerm_network_interface" "linux" {
-  name                = var.linux_network_interface_name
+  name                = var.network_interface_name
   location            = azurerm_resource_group.infra.location
   resource_group_name = azurerm_resource_group.infra.name
 
   ip_configuration {
-    name                          = var.linux_ip_configuration_name
+    name                          = var.ip_configuration_name
     subnet_id                     = azurerm_subnet.infra.id
     private_ip_address_allocation = "Dynamic"
     public_ip_address_id          = azurerm_public_ip.linux.id
@@ -53,10 +53,10 @@ resource "azurerm_network_interface" "linux" {
 ########################################################################################################################
 
 resource "azurerm_linux_virtual_machine" "linux" {
-  name                = var.linux_vm_name
+  name                = var.vm_name
   resource_group_name = azurerm_resource_group.infra.name
   location            = azurerm_resource_group.infra.location
-  size                = var.linux_vm_size
+  size                = var.vm_size
 
  #  delete_os_disk_on_termination    = true
  #  delete_data_disks_on_termination = true
@@ -69,14 +69,14 @@ resource "azurerm_linux_virtual_machine" "linux" {
   }
 
   source_image_reference {
-    publisher = var.linux_image_publisher
-    offer     = var.linux_image_offer
-    sku       = var.linux_image_sku
-    version   = var.linux_image_version
+    publisher = var.image_publisher
+    offer     = var.image_offer
+    sku       = var.image_sku
+    version   = var.image_version
   }
   disable_password_authentication = false
-  computer_name   = var.linux_vm_name
-  admin_username   = var.linux_admin_username
-  admin_password   = var.linux_admin_password
+  computer_name   = var.vm_name
+  admin_username   = var.admin_username
+  admin_password   = var.admin_password
 }
 
